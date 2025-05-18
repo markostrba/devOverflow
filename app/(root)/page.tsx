@@ -1,3 +1,4 @@
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
@@ -8,7 +9,7 @@ interface SearchParams {
 }
 
 export default async function Home({ searchParams }: SearchParams) {
-  const { params = "" } = await searchParams;
+  const { params = "", filter = "" } = await searchParams;
   return (
     <>
       <section className="flex w-full flex-col-reverse sm:flex-row justify-between gap-4 sm:items-center">
@@ -28,7 +29,7 @@ export default async function Home({ searchParams }: SearchParams) {
           className="flex-1"
         />
       </section>
-      HomeFilter
+      <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
         <p>Question Card 1</p>
         <p>Question Card 1</p>
