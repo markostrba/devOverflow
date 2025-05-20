@@ -1,5 +1,5 @@
 import { IUser } from "@/database/user.model";
-import { fetchHandler } from "./fetch";
+import { fetchHandler } from "./handlers/fetch";
 import { IAccount } from "@/database/account.model";
 import ROUTES from "@/constants/routes";
 
