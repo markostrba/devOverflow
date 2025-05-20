@@ -1,5 +1,4 @@
 import Account from "@/database/account.model";
-import User from "@/database/user.model";
 import handleError from "@/lib/handlers/error";
 import { ForbiddenError } from "@/lib/http-errors";
 import dbConnect from "@/lib/mongoose";
@@ -38,7 +37,7 @@ export async function POST(request: Request) {
         "An account with the same provider already exists"
       );
 
-    const newAccount = await User.create(validatedData);
+    const newAccount = await Account.create(validatedData);
 
     return NextResponse.json(
       { success: true, data: newAccount },
