@@ -60,8 +60,11 @@ export default async function Home({ searchParams }: SearchParams) {
         empty={EMPTY_QUESTION}
         render={(questions) =>
           questions.map((question) => (
-            <div className="mt-10 flex w-full flex-col gap-6">
-              <QuestionCard key={question._id} question={question} />
+            <div
+              className="mt-10 flex w-full flex-col gap-6"
+              key={question._id}
+            >
+              <QuestionCard question={question} />
             </div>
           ))
         }
