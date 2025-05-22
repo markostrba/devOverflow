@@ -30,7 +30,6 @@ const AnswerForm = ({ questionId }: { questionId: string }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAnswering, startAnsweringTransition] = useTransition();
   const [isAISubmitting, setIsAISubmitting] = useState(false);
-  console.log("questionid", questionId);
   const editorRef = useRef<MDXEditorMethods>(null);
 
   const form = useForm<z.infer<typeof AnswerSchema>>({
