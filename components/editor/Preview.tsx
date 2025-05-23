@@ -1,4 +1,3 @@
-import React from "react";
 import { Code } from "bright";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
@@ -8,8 +7,9 @@ Code.theme = {
   lightSelector: "html.light",
 };
 
-const Preview = ({ content = "" }: { content: string }) => {
-  const formattedContent = content.replace(/\\/g, "").replace(/&#x20/g, "");
+const Preview = ({ content }: { content: string }) => {
+  const formattedContent = content.replace(/\\/g, "").replace(/&#x20;/g, "");
+
   return (
     <section className="markdown prose grid break-words">
       <MDXRemote
