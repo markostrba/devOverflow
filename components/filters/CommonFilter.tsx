@@ -18,7 +18,7 @@ interface Props {
     value: string;
   }[];
   className: string;
-  containerClasses: string;
+  containerClasses?: string;
 }
 
 const CommonFilter = ({
