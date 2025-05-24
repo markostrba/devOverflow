@@ -105,9 +105,9 @@ export async function getSavedQuestions(
   }
 
   const userId = validationResult.session?.user?.id;
-  const { page = 1, pageSize = 10, query, filter } = validationResult.params!;
+  const { page = 1, pageSize = 10, query, filter } = params;
 
-  const skip = (Number(page) - 1) * Number(pageSize);
+  const skip = (Number(page) - 1) * pageSize;
   const limit = pageSize;
 
   const sortOptions: Record<string, Record<string, 1 | -1>> = {
@@ -117,6 +117,7 @@ export async function getSavedQuestions(
     mostviewed: { "question.views": -1 },
     mostanswered: { "question.answers": -1 },
   };
+
   const sortCriteria = sortOptions[filter as keyof typeof sortOptions] || {
     "question.createdAt": -1,
   };
@@ -167,12 +168,13 @@ export async function getSavedQuestions(
       ...pipeline,
       { $count: "count" },
     ]);
+    const count = totalCount?.count || 0;
     pipeline.push({ $sort: sortCriteria }, { $skip: skip }, { $limit: limit });
     pipeline.push({ $project: { question: 1, author: 1 } });
 
     const questions = await Collection.aggregate(pipeline);
 
-    const isNext = totalCount.count > skip + questions.length;
+    const isNext = count > skip + questions.length;
 
     return {
       success: true,
