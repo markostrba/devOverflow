@@ -1,3 +1,5 @@
+import { P } from "pino";
+
 interface SignInWithOAuthParams {
   provider: "github" | "google";
   providerAccountId: string;
@@ -66,4 +68,8 @@ interface HasVotedResponse {
 
 interface CollectionBaseParams {
   questionId: string;
+}
+
+interface GetUserParams {
+  userId: string;
 }
