@@ -2,6 +2,7 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import DataRenderer from "@/components/DataRenderer";
 import CommonFilter from "@/components/filters/CommonFilter";
 import HomeFilter from "@/components/filters/HomeFilter";
+import Pagination from "@/components/Pagination";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
@@ -23,17 +24,7 @@ export default async function Home({ searchParams }: SearchParams) {
     filter: filter || "",
   });
 
-  const { questions } = data || {};
-
-  // const filteredQuestions = questions.filter((question) => {
-  //   const matchesQuery = question.title
-  //     .toLowerCase()
-  //     .includes(query.toLowerCase());
-  //   const matchesFilter = filter
-  //     ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
-  //     : true;
-  //   return matchesQuery && matchesFilter;
-  // });
+  const { questions, isNext } = data || {};
 
   return (
     <>
@@ -73,6 +64,7 @@ export default async function Home({ searchParams }: SearchParams) {
           </div>
         )}
       />
+      <Pagination page={page} isNext={isNext || false} />
     </>
   );
 }
