@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
 import { SignUpForm } from "@/components/auth/sign-up-form";
+import { SocialAuth } from "@/components/auth/social-auth";
+import { Separator } from "@/components/ui/separator";
 
 const SignUpPage = () => {
   return (
@@ -19,6 +21,15 @@ const SignUpPage = () => {
         </span>
       }
     >
+      <SocialAuth />
+
+      <div className="flex items-center gap-4">
+        <Separator className="flex-1" />
+        <span className="text-muted-foreground text-xs">
+          or continue with email
+        </span>
+        <Separator className="flex-1" />
+      </div>
       <SignUpForm />
     </AuthCard>
   );

@@ -4,6 +4,34 @@ import { createAuthMiddleware } from "better-auth/api";
 import { db } from "@/db/client";
 import * as schema from "@/db/schema";
 
+const gitHubClientId = process.env.GITHUB_CLIENT_ID;
+const gitHubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+
+if (!gitHubClientId) {
+  throw new Error("GITHUB_ID env is missing");
+}
+
+if (!gitHubClientSecret) {
+  throw new Error("GITHUB_SECRET env is missing");
+}
+
+const googleClientId = process.env.GOOGLE_CLIENT_ID;
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
+
+if (!googleClientId) {
+  throw new Error("GOOGLE_ID env is missing");
+}
+
+if (!googleClientSecret) {
+  throw new Error("GOOGLE_SECRET env is missing");
+}
+
+const betterAuthUrl = process.env.BETTER_AUTH_URL;
+
+if (!betterAuthUrl) {
+  throw new Error("BETTER_AUTH_URL env is missing");
+}
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -12,6 +40,19 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  baseURL: betterAuthUrl,
+
+  socialProviders: {
+    github: {
+      clientId: gitHubClientId,
+      clientSecret: gitHubClientSecret,
+    },
+    google: {
+      clientId: googleClientId,
+      clientSecret: googleClientSecret,
+    },
+  },
+
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
       if (ctx.path.startsWith("/sign-up")) {
