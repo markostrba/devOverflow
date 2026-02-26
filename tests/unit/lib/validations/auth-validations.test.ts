@@ -1,0 +1,96 @@
+import { signUpSchema } from "@/lib/validations/auth-validations";
+
+describe("signUpSchema", () => {
+  const validData = {
+    email: "test@test.com",
+    username: "valid_user",
+    name: "Valid Name",
+    password: "Password123!",
+  };
+
+  it("should pass with valid data", () => {
+    const result = signUpSchema.safeParse(validData);
+    expect(result.success).toBe(true);
+  });
+
+  describe("Email validation", () => {
+    it("should reject invalid email format", () => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        email: "invalid-email",
+      });
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        expect(result.error.flatten().fieldErrors.email).toBeDefined();
+      }
+    });
+
+    it("should reject empty email", () => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        email: "",
+      });
+
+      expect(result.success).toBe(false);
+    });
+  });
+
+  describe("Username validation", () => {
+    it("should reject username shorter than 3 chars", () => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        username: "ab",
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it("should allow underscores and numbers", () => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        username: "user_123",
+      });
+      expect(result.success).toBe(true);
+    });
+  });
+
+  describe("Name validation", () => {
+    it("should reject names with special characters", () => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        name: "John@Doe",
+      });
+
+      expect(result.success).toBe(false);
+    });
+
+    it("should reject too short name", () => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        name: "Jo",
+      });
+
+      expect(result.success).toBe(false);
+    });
+  });
+
+  describe("Password validation", () => {
+    const cases = [
+      ["no uppercase", "password123!"],
+      ["no lowercase", "PASSWORD123!"],
+      ["no number", "Password!"],
+      ["no special char", "Password123"],
+      ["too short", "Pas1!"],
+      ["too long", `${"P".repeat(64)}a1!`],
+    ];
+
+    it.each(cases)("should fail when %s", (_, password) => {
+      const result = signUpSchema.safeParse({
+        ...validData,
+        password,
+      });
+
+      expect(result.success).toBe(false);
+    });
+  });
+});
