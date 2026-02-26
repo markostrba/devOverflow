@@ -50,7 +50,8 @@ export function AuthField<T extends FieldValues>({
               autoComplete={autoComplete}
               disabled={disabled}
               className={cn(
-                "h-11 pl-10",
+                "h-11",
+                IconBefore && "pl-10",
                 iconAfter && "pr-10", // Add this to prevent text overlap
                 fieldState.error && "border-destructive",
               )}
