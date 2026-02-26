@@ -95,7 +95,7 @@ export function SignUpForm() {
         name="password"
         label="Password"
         autoComplete="new-password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         placeholder="Create a strong password"
         iconBefore={Lock}
         iconAfter={
@@ -104,6 +104,8 @@ export function SignUpForm() {
             variant="ghost"
             size="icon"
             onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            aria-pressed={showPassword}
             className="h-full px-3 text-muted-foreground hover:bg-transparent hover:text-foreground"
           >
             {showPassword ? (

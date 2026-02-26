@@ -31,16 +31,28 @@ export const auth = betterAuth({
     }),
     after: createAuthMiddleware(async (ctx) => {
       const path = ctx.path;
-      const response = ctx.context.returned as APIError;
-      console.log("ress", response.body);
+      const response = ctx.context.returned;
 
-      if (
-        path.startsWith("/sign-up") &&
-        response.body?.code === "USER_ALREADY_EXISTS"
-      ) {
-        throw new APIError("BAD_REQUEST", {
-          ...response.body,
-        });
+      if (response instanceof APIError) {
+        // 2. Handle specific sign-up conflicts
+        if (path === "/sign-up") {
+          const errorCode = response.body?.code;
+
+          if (errorCode === "USER_ALREADY_EXISTS") {
+            throw new APIError("BAD_REQUEST", {
+              message: "Email already in use.",
+              code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+            });
+          }
+
+          if (errorCode === "USERNAME_ALREADY_EXISTS") {
+            // Keep consistency with your frontend logic
+            throw new APIError("BAD_REQUEST", {
+              message: "Username is taken.",
+              code: "USERNAME_ALREADY_EXISTS",
+            });
+          }
+        }
       }
     }),
   },

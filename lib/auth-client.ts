@@ -5,7 +5,7 @@ import type { auth } from "./auth";
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 if (!baseURL) {
-  throw new Error("BASE_URL env is missing.");
+  throw new Error("NEXT_PUBLIC_BASE_URL env is missing.");
 }
 
 export const authClient = createAuthClient({
