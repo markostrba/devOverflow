@@ -8,22 +8,22 @@ const gitHubClientId = process.env.GITHUB_CLIENT_ID;
 const gitHubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 
 if (!gitHubClientId) {
-  throw new Error("GITHUB_ID env is missing");
+  throw new Error("GITHUB_CLIENT_ID env is missing");
 }
 
 if (!gitHubClientSecret) {
-  throw new Error("GITHUB_SECRET env is missing");
+  throw new Error("GITHUB_CLIENT_SECRET env is missing");
 }
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
 if (!googleClientId) {
-  throw new Error("GOOGLE_ID env is missing");
+  throw new Error("GOOGLE_CLIENT_ID env is missing");
 }
 
 if (!googleClientSecret) {
-  throw new Error("GOOGLE_SECRET env is missing");
+  throw new Error("GOOGLE_CLIENT_SECRET env is missing");
 }
 
 const betterAuthUrl = process.env.BETTER_AUTH_URL;

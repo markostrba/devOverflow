@@ -22,9 +22,7 @@ export function AuthCard({
   footer,
 }: AuthCardProps) {
   return (
-    <Card
-      className={`w-full max-w-md py-6 px-4 sm:py-10 sm:px-8 shadow-2xl rounded-none sm:rounded-xl`}
-    >
+    <Card className="w-full max-w-md py-6 px-4 sm:py-10 sm:px-8 shadow-2xl rounded-none sm:rounded-xl">
       <CardHeader className="flex flex-row justify-between px-0">
         <div>
           <CardTitle className="font-bold text-xl sm:text-2xl">
