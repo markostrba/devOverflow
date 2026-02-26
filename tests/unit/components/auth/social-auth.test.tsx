@@ -4,11 +4,10 @@ import { toast } from "sonner";
 import { SocialAuth } from "@/components/auth/social-auth";
 import { mockedAuthClient, resetAllMocks } from "@/tests/mocks";
 
-const user = userEvent.setup();
-
 describe("SocialAuth Component", () => {
   beforeEach(() => {
     resetAllMocks();
+    mockedAuthClient.signIn.social.mockReset();
   });
 
   it("renders GitHub and Google buttons", () => {
@@ -18,7 +17,9 @@ describe("SocialAuth Component", () => {
   });
 
   it("calls authClient with correct provider on click", async () => {
-    mockedAuthClient.signIn.social = jest.fn().mockResolvedValue({});
+    mockedAuthClient.signIn.social.mockResolvedValue({ data: {}, error: null });
+
+    const user = userEvent.setup();
     render(<SocialAuth />);
 
     const githubBtn = screen.getByRole("button", { name: /github/i });
@@ -37,12 +38,13 @@ describe("SocialAuth Component", () => {
 
   it("disables buttons while signing in and re-enables them after", async () => {
     let resolvePromise: (value: unknown) => void;
+    const user = userEvent.setup();
 
-    // Create a controlled promise
-    mockedAuthClient.signIn.social.mockReturnValue(
-      new Promise((resolve) => {
-        resolvePromise = resolve;
-      }),
+    mockedAuthClient.signIn.social.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolvePromise = resolve;
+        }),
     );
 
     render(<SocialAuth />);
@@ -54,23 +56,23 @@ describe("SocialAuth Component", () => {
     expect(googleBtn).toBeDisabled();
 
     await act(async () => {
-      resolvePromise(jest.fn);
+      resolvePromise({ data: {}, error: null });
     });
 
-    // 3. Verify "Idle" state
     expect(githubBtn).toBeEnabled();
     expect(googleBtn).toBeEnabled();
   });
 
   it("shows error toast on sign-in failure", async () => {
-    mockedAuthClient.signIn.social = jest
-      .fn()
-      .mockRejectedValue(new Error("Fail"));
+    const user = userEvent.setup();
+
+    mockedAuthClient.signIn.social.mockRejectedValue(new Error("Fail"));
 
     render(<SocialAuth />);
     const githubBtn = screen.getByRole("button", { name: /github/i });
 
     await user.click(githubBtn);
+
     await waitFor(() =>
       expect(toast.error).toHaveBeenCalledWith(
         "Failed to sign in. Please try again.",

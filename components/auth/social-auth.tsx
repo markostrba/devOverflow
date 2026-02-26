@@ -11,7 +11,12 @@ export function SocialAuth() {
   const handleSocialSignIn = async (provider: "github" | "google") => {
     setPending(provider);
     try {
-      await authClient.signIn.social({ provider });
+      const { error } = await authClient.signIn.social({ provider });
+
+      if (error) {
+        toast.error(error.message || "Failed to sign in. Please try again.");
+        return;
+      }
     } catch {
       toast.error("Failed to sign in. Please try again.");
     } finally {
