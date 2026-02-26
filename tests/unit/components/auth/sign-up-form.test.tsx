@@ -4,19 +4,9 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { AuthCard } from "@/components/auth/auth-card";
 import { SignUpForm } from "@/components/auth/sign-up-form";
-import { authClient } from "@/lib/auth-client";
 import ROUTES from "@/lib/constants/routes";
-import { mockRouter, resetAllMocks } from "@/tests/mocks";
+import { mockedAuthClient, mockRouter, resetAllMocks } from "@/tests/mocks";
 
-jest.mock("@/lib/auth-client", () => ({
-  authClient: {
-    signUp: {
-      email: jest.fn(),
-    },
-  },
-}));
-
-const mockedAuthClient = jest.mocked(authClient);
 const user = userEvent.setup();
 
 describe("SignUp AuthForm", () => {
