@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   type Control,
   Controller,
@@ -6,6 +7,7 @@ import {
 } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import ROUTES from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";
 
 interface FieldProps<T extends FieldValues> {
@@ -18,6 +20,10 @@ interface FieldProps<T extends FieldValues> {
   iconBefore?: React.ElementType; // Keep as ElementType for simple icons
   iconAfter?: React.ReactNode; // Change to ReactNode for buttons/elements
   disabled?: boolean;
+  forgotPassword?: {
+    label: string;
+    href: string;
+  };
 }
 
 export function AuthField<T extends FieldValues>({
@@ -30,6 +36,7 @@ export function AuthField<T extends FieldValues>({
   iconAfter, // Destructure as lowercase
   disabled,
   autoComplete,
+  forgotPassword,
 }: FieldProps<T>) {
   return (
     <Controller
@@ -37,7 +44,18 @@ export function AuthField<T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <div className="flex flex-col gap-2">
-          <Label htmlFor={name}>{label}</Label>
+          <div className="flex justify-between">
+            <Label htmlFor={name}>{label}</Label>
+            {forgotPassword?.href && (
+              <Link
+                className="text-xs font-medium text-accent hover:opacity-70"
+                href={ROUTES.FORGOT_PASSWORD}
+              >
+                {forgotPassword.label}
+              </Link>
+            )}
+          </div>
+
           <div className="relative">
             {IconBefore && (
               <IconBefore className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
