@@ -125,7 +125,7 @@ describe("signInSchema", () => {
     });
 
     it("should reject empty email", () => {
-      const result = signUpSchema.safeParse({
+      const result = signInSchema.safeParse({
         ...validData,
         email: "",
       });

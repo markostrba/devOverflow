@@ -11,6 +11,18 @@ export const passwordRequirements = [
   },
 ] as const;
 
+const passwordSchema = z
+  .string()
+  .min(8, "Password must be at least 8 characters long.")
+  .max(64, "Password is too long.")
+  .regex(/[A-Z]/, "Add at least one uppercase letter (A–Z).")
+  .regex(/[a-z]/, "Add at least one lowercase letter (a–z).")
+  .regex(/[0-9]/, "Include at least one number (0–9).")
+  .regex(
+    /[^a-zA-Z0-9]/,
+    "Include at least one special character (e.g. ! @ # $ %).",
+  );
+
 export const signUpSchema = z.object({
   username: z
     .string()
@@ -34,31 +46,11 @@ export const signUpSchema = z.object({
 
   email: z.email("Please enter a valid email address."),
 
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long.")
-    .max(64, "Password is too long.")
-    .regex(/[A-Z]/, "Add at least one uppercase letter (A–Z).")
-    .regex(/[a-z]/, "Add at least one lowercase letter (a–z).")
-    .regex(/[0-9]/, "Include at least one number (0–9).")
-    .regex(
-      /[^a-zA-Z0-9]/,
-      "Include at least one special character (e.g. ! @ # $ %).",
-    ),
+  password: passwordSchema,
 });
 
 export const signInSchema = z.object({
   email: z.email("Please enter a valid email address."),
 
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long.")
-    .max(64, "Password is too long.")
-    .regex(/[A-Z]/, "Add at least one uppercase letter (A–Z).")
-    .regex(/[a-z]/, "Add at least one lowercase letter (a–z).")
-    .regex(/[0-9]/, "Include at least one number (0–9).")
-    .regex(
-      /[^a-zA-Z0-9]/,
-      "Include at least one special character (e.g. ! @ # $ %).",
-    ),
+  password: passwordSchema,
 });

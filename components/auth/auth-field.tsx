@@ -7,7 +7,6 @@ import {
 } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import ROUTES from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";
 
 interface FieldProps<T extends FieldValues> {
@@ -49,7 +48,7 @@ export function AuthField<T extends FieldValues>({
             {forgotPassword?.href && (
               <Link
                 className="text-xs font-medium text-accent hover:opacity-70"
-                href={ROUTES.FORGOT_PASSWORD}
+                href={forgotPassword.href}
               >
                 {forgotPassword.label}
               </Link>

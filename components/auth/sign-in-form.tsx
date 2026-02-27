@@ -31,8 +31,8 @@ const SignInForm = () => {
       });
 
       if (error) {
-        console.log("err", error);
         toast.error(error.message || "Something went wrong. Please try again.");
+        return;
       }
       toast.success("Signed in successfully.");
       form.reset();

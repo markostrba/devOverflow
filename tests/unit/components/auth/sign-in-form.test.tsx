@@ -129,6 +129,8 @@ describe("SignIn AuthForm", () => {
 
       await waitFor(() => {
         expect(toast.error).toHaveBeenCalled();
+        expect(toast.success).not.toHaveBeenCalled();
+        expect(mockRouter.push).not.toHaveBeenCalled();
       });
     });
   });
