@@ -1,15 +1,45 @@
 import z from "zod";
 
-export const passwordRequirements = [
-  { regex: /.{8,}/, label: "At least 8 characters" },
-  { regex: /[a-z]/, label: "At least 1 lowercase letter (a\u2013z)" },
-  { regex: /[A-Z]/, label: "At least 1 uppercase letter (A\u2013Z)" },
-  { regex: /[0-9]/, label: "At least 1 number (0\u20139)" },
+export const PASSWORD_RULES = [
+  {
+    regex: /.{8,}/,
+    label: "At least 8 characters",
+    errorMessage: "Password must be at least 8 characters long.",
+  },
+  {
+    regex: /[a-z]/,
+    label: "At least 1 lowercase letter (a–z)",
+    errorMessage: "Add at least one lowercase letter (a–z).",
+  },
+  {
+    regex: /[A-Z]/,
+    label: "At least 1 uppercase letter (A–Z)",
+    errorMessage: "Add at least one uppercase letter (A–Z).",
+  },
+  {
+    regex: /[0-9]/,
+    label: "At least 1 number (0–9)",
+    errorMessage: "Include at least one number (0–9).",
+  },
   {
     regex: /[^a-zA-Z0-9]/,
     label: "At least 1 special character (e.g. ! @ # $)",
+    errorMessage: "Include at least one special character (e.g. ! @ # $ %).",
   },
 ] as const;
+
+// Derive UI requirements from the config
+export const passwordRequirements = PASSWORD_RULES.map(({ regex, label }) => ({
+  regex,
+  label,
+}));
+
+// Programmatically build the Zod schema
+let passwordSchema = z.string().max(64, "Password is too long.");
+
+PASSWORD_RULES.forEach((rule) => {
+  passwordSchema = passwordSchema.regex(rule.regex, rule.errorMessage);
+});
 
 export const signUpSchema = z.object({
   username: z
@@ -34,15 +64,11 @@ export const signUpSchema = z.object({
 
   email: z.email("Please enter a valid email address."),
 
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long.")
-    .max(64, "Password is too long.")
-    .regex(/[A-Z]/, "Add at least one uppercase letter (A–Z).")
-    .regex(/[a-z]/, "Add at least one lowercase letter (a–z).")
-    .regex(/[0-9]/, "Include at least one number (0–9).")
-    .regex(
-      /[^a-zA-Z0-9]/,
-      "Include at least one special character (e.g. ! @ # $ %).",
-    ),
+  password: passwordSchema,
+});
+
+export const signInSchema = z.object({
+  email: z.email("Please enter a valid email address."),
+
+  password: passwordSchema,
 });

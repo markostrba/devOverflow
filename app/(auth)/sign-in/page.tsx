@@ -1,26 +1,25 @@
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
-import { SignUpForm } from "@/components/auth/sign-up-form";
+import SignInForm from "@/components/auth/sign-in-form";
 import { SocialAuth } from "@/components/auth/social-auth";
 import { Separator } from "@/components/ui/separator";
 import { authIsNotRequired } from "@/lib/auth-utils";
 import ROUTES from "@/lib/constants/routes";
 
-const SignUpPage = async () => {
+const SignInPage = async () => {
   await authIsNotRequired();
-
   return (
     <AuthCard
-      title="Create account"
-      description="Join the DevOverflow community"
+      title="Welcome Back"
+      description="Sign In to continue to DevOverflow"
       footer={
         <span className="text-center text-sm text-muted-foreground">
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <Link
-            href={ROUTES.SIGN_IN}
+            href={ROUTES.SIGN_UP}
             className="font-semibold text-accent hover:opacity-80"
           >
-            Sign In
+            Sign Up
           </Link>
         </span>
       }
@@ -34,9 +33,9 @@ const SignUpPage = async () => {
         </span>
         <Separator className="flex-1" />
       </div>
-      <SignUpForm />
+      <SignInForm />
     </AuthCard>
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

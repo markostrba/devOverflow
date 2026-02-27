@@ -1,4 +1,5 @@
-import { signUpSchema } from "@/lib/validations/auth-validations";
+import z from "zod";
+import { signInSchema, signUpSchema } from "@/lib/validations/auth-validations";
 
 describe("signUpSchema", () => {
   const validData = {
@@ -22,7 +23,9 @@ describe("signUpSchema", () => {
 
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.flatten().fieldErrors.email).toBeDefined();
+        const error = z.treeifyError(result.error);
+
+        expect(error?.properties?.email).toBeDefined();
       }
     });
 
@@ -86,6 +89,62 @@ describe("signUpSchema", () => {
 
     it.each(cases)("should fail when %s", (_, password) => {
       const result = signUpSchema.safeParse({
+        ...validData,
+        password,
+      });
+
+      expect(result.success).toBe(false);
+    });
+  });
+});
+
+describe("signInSchema", () => {
+  const validData = {
+    email: "test@test.com",
+    password: "Password123!",
+  };
+
+  it("should pass with valid data", () => {
+    const result = signInSchema.safeParse(validData);
+    expect(result.success).toBe(true);
+  });
+
+  describe("Email validation", () => {
+    it("should reject invalid email format", () => {
+      const result = signInSchema.safeParse({
+        ...validData,
+        email: "invalid-email",
+      });
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const error = z.treeifyError(result.error);
+
+        expect(error?.properties?.email).toBeDefined();
+      }
+    });
+
+    it("should reject empty email", () => {
+      const result = signInSchema.safeParse({
+        ...validData,
+        email: "",
+      });
+
+      expect(result.success).toBe(false);
+    });
+  });
+  describe("Password validation", () => {
+    const cases = [
+      ["no uppercase", "password123!"],
+      ["no lowercase", "PASSWORD123!"],
+      ["no number", "Password!"],
+      ["no special char", "Password123"],
+      ["too short", "Pas1!"],
+      ["too long", `${"P".repeat(64)}a1!`],
+    ];
+
+    it.each(cases)("should fail when %s", (_, password) => {
+      const result = signInSchema.safeParse({
         ...validData,
         password,
       });
