@@ -3,9 +3,12 @@ import { AuthCard } from "@/components/auth/auth-card";
 import { SignUpForm } from "@/components/auth/sign-up-form";
 import { SocialAuth } from "@/components/auth/social-auth";
 import { Separator } from "@/components/ui/separator";
+import { authIsNotRequired } from "@/lib/auth-utils";
 import ROUTES from "@/lib/constants/routes";
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
+  await authIsNotRequired();
+
   return (
     <AuthCard
       title="Create account"

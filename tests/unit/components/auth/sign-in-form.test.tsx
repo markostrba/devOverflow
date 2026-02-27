@@ -7,10 +7,10 @@ import SignInForm from "@/components/auth/sign-in-form";
 import ROUTES from "@/lib/constants/routes";
 import { mockedAuthClient, mockRouter, resetAllMocks } from "@/tests/mocks";
 
-const user = userEvent.setup();
-
 describe("SignIn AuthForm", () => {
   const setup = () => {
+    const user = userEvent.setup();
+
     const utils = render(
       <AuthCard
         title="Welcome Back"
@@ -35,7 +35,7 @@ describe("SignIn AuthForm", () => {
       password: screen.getByLabelText("Password"),
     });
     const submitBtn = screen.getByRole("button", { name: /sign in/i });
-    return { ...utils, getInputs, submitBtn };
+    return { ...utils, user, getInputs, submitBtn };
   };
 
   beforeEach(() => {
@@ -58,7 +58,7 @@ describe("SignIn AuthForm", () => {
 
   describe("Validation Feedback", () => {
     it("should show errors for empty fields on submit", async () => {
-      const { submitBtn } = setup();
+      const { submitBtn, user } = setup();
       await user.click(submitBtn);
 
       // We only check for a few to prove the connection to Zod is working
@@ -79,7 +79,7 @@ describe("SignIn AuthForm", () => {
 
       mockedAuthClient.signIn.email.mockReturnValue(new Promise(() => {}));
 
-      const { getInputs, submitBtn } = setup();
+      const { getInputs, submitBtn, user } = setup();
       const inputs = getInputs();
 
       await user.type(inputs.email, "test@example.com");
@@ -97,7 +97,7 @@ describe("SignIn AuthForm", () => {
         data: {},
         error: null,
       });
-      const { getInputs, submitBtn } = setup();
+      const { getInputs, submitBtn, user } = setup();
       const inputs = getInputs();
 
       await user.type(inputs.email, "test@example.com");
@@ -120,7 +120,7 @@ describe("SignIn AuthForm", () => {
         error: { message: "Auth error" },
       });
 
-      const { getInputs, submitBtn } = setup();
+      const { getInputs, submitBtn, user } = setup();
       const inputs = getInputs();
 
       await user.type(inputs.email, "error@test.com");
@@ -137,7 +137,7 @@ describe("SignIn AuthForm", () => {
 
   describe("Password Validation", () => {
     it("should toggle password visibility when clicking the eye icon", async () => {
-      const { getInputs } = setup();
+      const { getInputs, user } = setup();
       const inputs = getInputs();
 
       const passwordToggleVisibility = screen.getByRole("button", {

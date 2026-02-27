@@ -45,7 +45,7 @@ export function AuthField<T extends FieldValues>({
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
             <Label htmlFor={name}>{label}</Label>
-            {forgotPassword?.href && (
+            {forgotPassword?.href && forgotPassword.label.trim() && (
               <Link
                 className="text-xs font-medium text-accent hover:opacity-70"
                 href={forgotPassword.href}
