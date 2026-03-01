@@ -28,7 +28,7 @@ export function AuthCard({
           <CardTitle className="font-bold text-xl sm:text-2xl">
             {title}
           </CardTitle>
-          <CardDescription className="font-normal text-base text-[#3F4354] pt-1.5">
+          <CardDescription className="font-normal text-sm pt-1.5">
             {description}
           </CardDescription>
         </div>
