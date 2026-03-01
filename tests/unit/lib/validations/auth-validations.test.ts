@@ -87,7 +87,7 @@ describe("signUpSchema", () => {
       ["too long", `${"P".repeat(64)}a1!`],
     ];
 
-    it.each(cases)("should fail when %s", (_, password) => {
+    test.each(cases)("should fail when %s", (_, password) => {
       const result = signUpSchema.safeParse({
         ...validData,
         password,
@@ -143,7 +143,7 @@ describe("signInSchema", () => {
       ["too long", `${"P".repeat(64)}a1!`],
     ];
 
-    it.each(cases)("should fail when %s", (_, password) => {
+    test.each(cases)("should fail when %s", (_, password) => {
       const result = signInSchema.safeParse({
         ...validData,
         password,

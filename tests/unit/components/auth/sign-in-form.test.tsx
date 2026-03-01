@@ -92,7 +92,7 @@ describe("SignIn AuthForm", () => {
       expect(getInputs().email).toBeDisabled();
     });
 
-    it("should redirect and toast on success", async () => {
+    test("should redirect and toast on success", async () => {
       mockedAuthClient.signIn.email.mockResolvedValue({
         data: {},
         error: null,
@@ -114,7 +114,7 @@ describe("SignIn AuthForm", () => {
       });
     });
 
-    it("should show error toast if the API fails", async () => {
+    test("should show error toast if the API fails", async () => {
       mockedAuthClient.signIn.email.mockResolvedValue({
         data: null,
         error: { message: "Auth error" },
