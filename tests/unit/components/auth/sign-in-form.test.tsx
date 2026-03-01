@@ -43,7 +43,7 @@ describe("SignIn AuthForm", () => {
   });
 
   describe("Rendering", () => {
-    it("should render all fields and the sign-up link", () => {
+    test("should render all fields and the sign-up link", () => {
       const { getInputs } = setup();
       const inputs = getInputs();
 
@@ -57,7 +57,7 @@ describe("SignIn AuthForm", () => {
   });
 
   describe("Validation Feedback", () => {
-    it("should show errors for empty fields on submit", async () => {
+    test("should show errors for empty fields on submit", async () => {
       const { submitBtn, user } = setup();
       await user.click(submitBtn);
 
@@ -74,7 +74,7 @@ describe("SignIn AuthForm", () => {
   });
 
   describe("Submission Flow", () => {
-    it("should disable the submit button and show loading state during submission", async () => {
+    test("should disable the submit button and show loading state during submission", async () => {
       // Mock a slow response
 
       mockedAuthClient.signIn.email.mockReturnValue(new Promise(() => {}));
@@ -92,7 +92,7 @@ describe("SignIn AuthForm", () => {
       expect(getInputs().email).toBeDisabled();
     });
 
-    it("should redirect and toast on success", async () => {
+    test("should redirect and toast on success", async () => {
       mockedAuthClient.signIn.email.mockResolvedValue({
         data: {},
         error: null,
@@ -114,8 +114,8 @@ describe("SignIn AuthForm", () => {
       });
     });
 
-    it("should show error toast if the API fails", async () => {
-      (mockedAuthClient.signIn.email as jest.Mock).mockResolvedValue({
+    test("should show error toast if the API fails", async () => {
+      mockedAuthClient.signIn.email.mockResolvedValue({
         data: null,
         error: { message: "Auth error" },
       });
@@ -136,7 +136,7 @@ describe("SignIn AuthForm", () => {
   });
 
   describe("Password Validation", () => {
-    it("should toggle password visibility when clicking the eye icon", async () => {
+    test("should toggle password visibility when clicking the eye icon", async () => {
       const { getInputs, user } = setup();
       const inputs = getInputs();
 

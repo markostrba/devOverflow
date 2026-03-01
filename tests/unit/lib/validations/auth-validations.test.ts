@@ -9,13 +9,13 @@ describe("signUpSchema", () => {
     password: "Password123!",
   };
 
-  it("should pass with valid data", () => {
+  test("should pass with valid data", () => {
     const result = signUpSchema.safeParse(validData);
     expect(result.success).toBe(true);
   });
 
   describe("Email validation", () => {
-    it("should reject invalid email format", () => {
+    test("should reject invalid email format", () => {
       const result = signUpSchema.safeParse({
         ...validData,
         email: "invalid-email",
@@ -29,7 +29,7 @@ describe("signUpSchema", () => {
       }
     });
 
-    it("should reject empty email", () => {
+    test("should reject empty email", () => {
       const result = signUpSchema.safeParse({
         ...validData,
         email: "",
@@ -40,7 +40,7 @@ describe("signUpSchema", () => {
   });
 
   describe("Username validation", () => {
-    it("should reject username shorter than 3 chars", () => {
+    test("should reject username shorter than 3 chars", () => {
       const result = signUpSchema.safeParse({
         ...validData,
         username: "ab",
@@ -48,7 +48,7 @@ describe("signUpSchema", () => {
       expect(result.success).toBe(false);
     });
 
-    it("should allow underscores and numbers", () => {
+    test("should allow underscores and numbers", () => {
       const result = signUpSchema.safeParse({
         ...validData,
         username: "user_123",
@@ -58,7 +58,7 @@ describe("signUpSchema", () => {
   });
 
   describe("Name validation", () => {
-    it("should reject names with special characters", () => {
+    test("should reject names with special characters", () => {
       const result = signUpSchema.safeParse({
         ...validData,
         name: "John@Doe",
@@ -67,7 +67,7 @@ describe("signUpSchema", () => {
       expect(result.success).toBe(false);
     });
 
-    it("should reject too short name", () => {
+    test("should reject too short name", () => {
       const result = signUpSchema.safeParse({
         ...validData,
         name: "Jo",
@@ -87,7 +87,7 @@ describe("signUpSchema", () => {
       ["too long", `${"P".repeat(64)}a1!`],
     ];
 
-    it.each(cases)("should fail when %s", (_, password) => {
+    test.each(cases)("should fail when %s", (_, password) => {
       const result = signUpSchema.safeParse({
         ...validData,
         password,
@@ -104,13 +104,13 @@ describe("signInSchema", () => {
     password: "Password123!",
   };
 
-  it("should pass with valid data", () => {
+  test("should pass with valid data", () => {
     const result = signInSchema.safeParse(validData);
     expect(result.success).toBe(true);
   });
 
   describe("Email validation", () => {
-    it("should reject invalid email format", () => {
+    test("should reject invalid email format", () => {
       const result = signInSchema.safeParse({
         ...validData,
         email: "invalid-email",
@@ -124,7 +124,7 @@ describe("signInSchema", () => {
       }
     });
 
-    it("should reject empty email", () => {
+    test("should reject empty email", () => {
       const result = signInSchema.safeParse({
         ...validData,
         email: "",
@@ -143,7 +143,7 @@ describe("signInSchema", () => {
       ["too long", `${"P".repeat(64)}a1!`],
     ];
 
-    it.each(cases)("should fail when %s", (_, password) => {
+    test.each(cases)("should fail when %s", (_, password) => {
       const result = signInSchema.safeParse({
         ...validData,
         password,

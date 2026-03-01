@@ -1,9 +1,9 @@
 export const mockedAuthClient = {
   signUp: {
-    email: jest.fn(),
+    email: vi.fn(),
   },
   signIn: {
-    email: jest.fn(),
-    social: jest.fn(),
+    email: vi.fn(),
+    social: vi.fn(),
   },
 };
