@@ -1,3 +1,10 @@
+import { BriefcaseIcon } from "@/components/ui/briefcase-icon";
+import { CircleHelpIcon } from "@/components/ui/circle-help";
+import { FolderHeartIcon } from "@/components/ui/folder-heart";
+import { HomeIcon } from "@/components/ui/home";
+import { TagsIcon } from "@/components/ui/tags-icon";
+import { UsersIcon } from "@/components/ui/users";
+
 const ROUTES = {
   HOME: "/",
   COLLECTIONS: "/collections",
@@ -11,15 +18,15 @@ const ROUTES = {
 };
 
 export const SIDEBAR_LINKS = [
-  { route: ROUTES.HOME, label: "Home", icon: "home-icon" },
-  { route: ROUTES.COLLECTIONS, label: "Collections", icon: "folder-icon" },
-  { route: ROUTES.FIND_JOBS, label: "Find Jobs", icon: "briefcase-icon" },
-  { route: ROUTES.TAGS, label: "Tags", icon: "tag-icon" },
-  { route: ROUTES.COMMUNITIES, label: "Communities", icon: "users-icon" },
+  { route: ROUTES.HOME, label: "Home", icon: HomeIcon },
+  { route: ROUTES.COLLECTIONS, label: "Collections", icon: FolderHeartIcon },
+  { route: ROUTES.FIND_JOBS, label: "Find Jobs", icon: BriefcaseIcon },
+  { route: ROUTES.TAGS, label: "Tags", icon: TagsIcon },
+  { route: ROUTES.COMMUNITIES, label: "Communities", icon: UsersIcon },
   {
     route: ROUTES.ASK_A_QUESTION,
     label: "Ask a Question",
-    icon: "question-icon",
+    icon: CircleHelpIcon,
   },
 ];
 

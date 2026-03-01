@@ -22,7 +22,7 @@ const HomePage = () => {
       </section>
       <aside className="hidden xl:flex xl:w-70 2xl:w-75 shrink-0 flex-col gap-5">
         <div className="rounded-xl border border-border p-5 bg-card">
-          <h1>Hot Network</h1>
+          <h2>Hot Network</h2>
           <ul className="flex flex-col gap-3">
             <li>
               Would it be appropriate to point out an error in another paper
@@ -34,7 +34,7 @@ const HomePage = () => {
           </ul>
         </div>
         <div className="rounded-xl border border-border p-5 bg-card">
-          <h1>Popular Tags</h1>
+          <h2>Popular Tags</h2>
           <ul className="flex flex-col gap-3">
             <li>JavaScript</li>
             <li>TypeScript</li>

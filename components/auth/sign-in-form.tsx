@@ -92,7 +92,7 @@ const SignInForm = () => {
         className="cursor-pointer group relative mt-2 flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-lg text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60 bg-accent text-accent-foreground hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/25 active:translate-y-0 active:shadow-md active:shadow-accent/20 hover:bg-accent"
       >
         {!isPending && (
-          <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-background/15 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+          <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
         )}
         {isPending ? (
           <>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ROUTES from "@/lib/constants/routes";
+import { DarkModeToggle } from "./ui/darl-mode-toogle";
 
 const Navbar = () => {
   return (
@@ -19,6 +20,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-3.5">
+          <DarkModeToggle />
           <div className="border size-7 rounded-full text-center md:hidden">
             MS
           </div>
