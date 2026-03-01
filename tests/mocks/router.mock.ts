@@ -1,12 +1,12 @@
 const mockRouter = {
-  replace: jest.fn(),
-  push: jest.fn(),
-  prefetch: jest.fn(),
-  refresh: jest.fn(),
-  forward: jest.fn(),
-  back: jest.fn(),
+  replace: vi.fn(),
+  push: vi.fn(),
+  prefetch: vi.fn(),
+  refresh: vi.fn(),
+  forward: vi.fn(),
+  back: vi.fn(),
 };
 
-const mockUseRouter = jest.fn().mockReturnValue(mockRouter);
+const mockUseRouter = vi.fn().mockReturnValue(mockRouter);
 
 export { mockUseRouter, mockRouter };

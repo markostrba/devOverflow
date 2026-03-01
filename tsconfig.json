@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals"],
+
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -22,6 +24,7 @@
       "@/*": ["./*"]
     }
   },
+
   "include": [
     "next-env.d.ts",
     "**/*.ts",

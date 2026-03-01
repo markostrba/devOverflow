@@ -147,7 +147,7 @@ describe("SignUp AuthForm", () => {
     });
 
     it("should show error toast if the API fails", async () => {
-      (mockedAuthClient.signUp.email as jest.Mock).mockResolvedValue({
+      mockedAuthClient.signUp.email.mockResolvedValue({
         data: null,
         error: { message: "Auth error" },
       });

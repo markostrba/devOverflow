@@ -1,7 +1,7 @@
-export const mockToast = Object.assign(jest.fn(), {
-  success: jest.fn(),
-  info: jest.fn(),
-  warning: jest.fn(),
-  error: jest.fn(),
-  loading: jest.fn(),
+export const mockToast = Object.assign(vi.fn(), {
+  success: vi.fn(),
+  info: vi.fn(),
+  warning: vi.fn(),
+  error: vi.fn(),
+  loading: vi.fn(),
 });
