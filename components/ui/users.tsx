@@ -58,7 +58,7 @@ const UsersIcon = forwardRef<UsersIconHandle, UsersIconProps>(
           controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -69,7 +69,7 @@ const UsersIcon = forwardRef<UsersIconHandle, UsersIconProps>(
           controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
@@ -77,6 +77,8 @@ const UsersIcon = forwardRef<UsersIconHandle, UsersIconProps>(
         className={cn(className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        role="img"
+        aria-label="Users"
         {...props}
       >
         <svg
@@ -89,7 +91,9 @@ const UsersIcon = forwardRef<UsersIconHandle, UsersIconProps>(
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
+          <title>Users icon</title>
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
           <circle cx="9" cy="7" r="4" />
           <motion.path
@@ -105,7 +109,7 @@ const UsersIcon = forwardRef<UsersIconHandle, UsersIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 UsersIcon.displayName = "UsersIcon";

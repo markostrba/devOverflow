@@ -50,7 +50,7 @@ const FolderHeartIcon = forwardRef<FolderHeartIconHandle, FolderHeartIconProps>(
           controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -61,7 +61,7 @@ const FolderHeartIcon = forwardRef<FolderHeartIconHandle, FolderHeartIconProps>(
           controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
@@ -69,6 +69,8 @@ const FolderHeartIcon = forwardRef<FolderHeartIconHandle, FolderHeartIconProps>(
         className={cn(className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        role="img"
+        aria-label="Folder with heart"
         {...props}
       >
         <svg
@@ -81,7 +83,9 @@ const FolderHeartIcon = forwardRef<FolderHeartIconHandle, FolderHeartIconProps>(
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
+          <title>Folder heart icon</title>
           <path d="M10.638 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v3.417" />
           <motion.path
             animate={controls}
@@ -93,7 +97,7 @@ const FolderHeartIcon = forwardRef<FolderHeartIconHandle, FolderHeartIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 FolderHeartIcon.displayName = "FolderHeartIcon";

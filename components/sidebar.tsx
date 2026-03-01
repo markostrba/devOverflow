@@ -20,7 +20,7 @@ const Sidebar = () => {
             height={32}
             alt="DevOverflow Logo"
           />
-          <p className="font-bold text-2xl font-space-grotesk text-black dark:text-white">
+          <p className="font-bold text-2xl font-heading text-black dark:text-white">
             Dev<span className="text-accent">Overflow</span>
           </p>
         </Link>

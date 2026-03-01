@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ROUTES from "@/lib/constants/routes";
-import { DarkModeToggle } from "./ui/darl-mode-toogle";
+import { DarkModeToggle } from "./ui/dark-mode-toggle";
 
 const Navbar = () => {
   return (

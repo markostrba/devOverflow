@@ -1,6 +1,5 @@
 "use client";
 import { SiGithub, SiGoogle } from "@icons-pack/react-simple-icons";
-import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";

@@ -4,6 +4,7 @@ import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { cn } from "@/lib/utils";
 
 export interface AnimatedTagsIconHandle {
   startAnimation: () => void;
@@ -113,9 +114,11 @@ const TagsIcon = forwardRef<AnimatedTagsIconHandle, AnimatedTagsIconProps>(
 
     return (
       <div
-        className={className}
+        className={cn(className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        role="img"
+        aria-label="Tags"
         {...props}
       >
         <svg
@@ -128,7 +131,9 @@ const TagsIcon = forwardRef<AnimatedTagsIconHandle, AnimatedTagsIconProps>(
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
+          <title>Tags icon</title>
           {/* Back tag (the one peeking behind) */}
           <motion.path
             d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"

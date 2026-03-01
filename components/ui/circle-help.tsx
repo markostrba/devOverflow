@@ -62,6 +62,8 @@ const CircleHelpIcon = forwardRef<CircleHelpIconHandle, CircleHelpIconProps>(
         className={cn(className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        role="img"
+        aria-label="Help"
         {...props}
       >
         <svg
@@ -74,7 +76,9 @@ const CircleHelpIcon = forwardRef<CircleHelpIconHandle, CircleHelpIconProps>(
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
+          <title>Help icon</title>
           <circle cx="12" cy="12" r="10" />
           <motion.g
             animate={controls}

@@ -81,9 +81,11 @@ const BriefcaseIcon = forwardRef<BriefcaseIconHandle, BriefcaseIconProps>(
 
     return (
       <div
-        className={className}
+        className={cn(className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        role="img"
+        aria-label="Briefcase"
         {...props}
       >
         <motion.svg
@@ -98,7 +100,9 @@ const BriefcaseIcon = forwardRef<BriefcaseIconHandle, BriefcaseIconProps>(
           strokeLinejoin="round"
           variants={BOUNCE_VARIANTS}
           animate={controls}
+          aria-hidden="true"
         >
+          <title>Briefcase icon</title>
           {/* Briefcase body */}
           <motion.rect
             width="20"
