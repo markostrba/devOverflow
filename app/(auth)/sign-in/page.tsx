@@ -3,8 +3,8 @@ import { AuthCard } from "@/components/auth/auth-card";
 import SignInForm from "@/components/auth/sign-in-form";
 import { SocialAuth } from "@/components/auth/social-auth";
 import { Separator } from "@/components/ui/separator";
-import { authIsNotRequired } from "@/lib/auth-utils";
 import ROUTES from "@/lib/constants/routes";
+import { authIsNotRequired } from "@/lib/utils/auth/auth-session-utils";
 
 const SignInPage = async () => {
   await authIsNotRequired();
