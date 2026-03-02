@@ -3,8 +3,8 @@ import { AuthCard } from "@/components/auth/auth-card";
 import { SignUpForm } from "@/components/auth/sign-up-form";
 import { SocialAuth } from "@/components/auth/social-auth";
 import { Separator } from "@/components/ui/separator";
-import { authIsNotRequired } from "@/lib/auth-utils";
 import ROUTES from "@/lib/constants/routes";
+import { authIsNotRequired } from "@/lib/utils/auth/auth-session-utils";
 
 const SignUpPage = async () => {
   await authIsNotRequired();

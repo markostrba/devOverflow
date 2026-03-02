@@ -1,8 +1,10 @@
 import { APIError, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { createAuthMiddleware } from "better-auth/api";
+import { testUtils } from "better-auth/plugins";
 import { db } from "@/db/client";
 import * as schema from "@/db/schema";
+import { generateUniqueUsername } from "./utils/auth/generate-username";
 
 const gitHubClientId = process.env.GITHUB_CLIENT_ID;
 const gitHubClientSecret = process.env.GITHUB_CLIENT_SECRET;
@@ -33,6 +35,7 @@ if (!betterAuthUrl) {
 }
 
 export const auth = betterAuth({
+  plugins: [testUtils()],
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,
@@ -104,6 +107,19 @@ export const auth = betterAuth({
         type: "string",
         unique: true,
         input: true, // allow users to set it on signup
+      },
+    },
+  },
+
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          const generated = await generateUniqueUsername(user);
+          if (generated) {
+            return { data: { ...user, username: generated } };
+          }
+        },
       },
     },
   },
