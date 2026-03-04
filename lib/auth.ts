@@ -34,8 +34,10 @@ if (!betterAuthUrl) {
   throw new Error("BETTER_AUTH_URL env is missing");
 }
 
+const isBetterAuthTest = process.env.BETTER_AUTH_TEST === "true";
+
 export const auth = betterAuth({
-  plugins: [testUtils()],
+  plugins: isBetterAuthTest ? [testUtils()] : [],
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,

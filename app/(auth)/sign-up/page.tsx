@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import ROUTES from "@/lib/constants/routes";
 import { authIsNotRequired } from "@/lib/utils/auth/auth-session-utils";
 
+export const dynamic = "force-dynamic";
+
 const SignUpPage = async () => {
   await authIsNotRequired();
 
