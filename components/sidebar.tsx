@@ -2,13 +2,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 import ROUTES, { AUTH_LINKS, SIDEBAR_LINKS } from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";
 import SidebarItem from "./sidebar-item";
+import { Skeleton } from "./ui/skeleton";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  console.log("pathname", pathname);
+  const { data, isPending } = authClient.useSession();
 
   return (
     <aside className="hidden lg:flex flex-col lg:w-64 bg-card/80 border-r border-border h-full">
@@ -44,23 +46,31 @@ const Sidebar = () => {
           ))}
         </ul>
 
-        {/* Auth Links (Justified at the bottom) */}
-        <div className="flex flex-col gap-4 px-3.5 mt-auto border-t border-border py-4">
-          {AUTH_LINKS.map((link) => (
-            <Link
-              key={link.route}
-              href={link.route}
-              className={cn(
-                "flex justify-center items-center px-4 py-3 rounded-lg text-sm font-bold border border-accent text-accent hover:bg-accent hover:text-white transition-colors",
-                link.route === ROUTES.SIGN_UP
-                  ? "bg-secondary border border-stone-400 text-foreground hover:border-stone-500 dark:hover:border-stone-300  hover:bg-stone-200/90 dark:hover:bg-white/5 hover:text-foreground"
-                  : "hover:bg-background hover:bg-[radial-gradient(ellipse_200%_160%_at_top_right,#e8740c14_0%,transparent_80%)] hover:text-accent",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        {isPending ? (
+          <div className="flex flex-col gap-4 px-3.5 mt-auto border-t border-border py-4">
+            <Skeleton className="h-11.5 w-full rounded-lg bg-muted" />
+            <Skeleton className="h-11.5 w-full rounded-lg bg-muted" />
+          </div>
+        ) : (
+          !data?.user && (
+            <div className="flex flex-col gap-4 px-3.5 mt-auto border-t border-border py-4">
+              {AUTH_LINKS.map((link) => (
+                <Link
+                  key={link.route}
+                  href={link.route}
+                  className={cn(
+                    "flex justify-center items-center px-4 py-3 rounded-lg text-sm font-bold border border-accent text-accent hover:bg-accent hover:text-white transition-colors",
+                    link.route === ROUTES.SIGN_UP
+                      ? "bg-secondary border border-stone-400 text-foreground hover:border-stone-500 dark:hover:border-stone-300  hover:bg-stone-200/90 dark:hover:bg-white/5 hover:text-foreground"
+                      : "hover:bg-background hover:bg-[radial-gradient(ellipse_200%_160%_at_top_right,#e8740c14_0%,transparent_80%)] hover:text-accent",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          )
+        )}
       </nav>
     </aside>
   );

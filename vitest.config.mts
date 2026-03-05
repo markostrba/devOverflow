@@ -9,16 +9,19 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: "node-tests",
-          include: ["tests/{integration,e2e}/**/*"],
+          name: "integration",
+          include: [
+            "tests/integration/**/*.test.ts",
+            "tests/integration/**/*.test.tsx",
+          ],
           environment: "node",
         },
       },
       {
         extends: true,
         test: {
-          name: "jsdom-tests",
-          include: ["tests/unit/**/*"],
+          name: "unit",
+          include: ["tests/unit/**/*.test.tsx", "tests/unit/**/*.test.ts"],
           environment: "jsdom",
         },
       },

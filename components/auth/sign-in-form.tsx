@@ -74,7 +74,7 @@ const SignInForm = () => {
             onClick={() => setShowPassword((prev) => !prev)}
             aria-label={showPassword ? "Hide password" : "Show password"}
             aria-pressed={showPassword}
-            className="h-full px-3 text-muted-foreground hover:bg-transparent hover:text-foreground"
+            className="cursor-pointer h-full px-3 text-muted-foreground hover:bg-transparent hover:text-foreground"
           >
             {showPassword ? (
               <EyeOff className="size-4" />
