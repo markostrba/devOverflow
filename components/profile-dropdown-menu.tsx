@@ -48,8 +48,8 @@ const ProfileDropdownMenu = () => {
           <DropdownMenuItem className="cursor-pointer">
             Settings
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <SignOutButton className="cursor-pointer p-0 text-sm font-normal h-full w-full justify-start transition-none" />
+          <DropdownMenuItem asChild>
+            <SignOutButton className="cursor-pointer p-2 py-1.5 text-sm font-normal h-full w-full justify-start transition-none" />
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

@@ -36,6 +36,10 @@ if (!betterAuthUrl) {
 
 const isBetterAuthTest = process.env.BETTER_AUTH_TEST === "true";
 
+if (process.env.NODE_ENV === "production" && isBetterAuthTest) {
+  throw new Error("BETTER_AUTH_TEST must never be enabled in production");
+}
+
 export const auth = betterAuth({
   plugins: isBetterAuthTest ? [testUtils()] : [],
   database: drizzleAdapter(db, {

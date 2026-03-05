@@ -1,3 +1,4 @@
+import type { Page } from "@playwright/test";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { user } from "@/db/schema";
@@ -5,6 +6,11 @@ import { auth } from "@/lib/auth";
 
 export async function getTestAuthUtils() {
   const ctx = await auth.$context;
+  if (!ctx.test) {
+    throw new Error(
+      "Better Auth test utils unavailable. Set BETTER_AUTH_TEST=true.",
+    );
+  }
   return ctx.test;
 }
 
@@ -25,3 +31,11 @@ export const TEST_USER = {
 export async function cleanupTestUser(email: string) {
   await db.delete(user).where(eq(user.email, email));
 }
+
+export const getAuthFieldFill = (page: Page) => {
+  return async (label: string, value: string) => {
+    const field = page.getByLabel(label, { exact: true }).first();
+    await field.click();
+    await field.fill(value);
+  };
+};

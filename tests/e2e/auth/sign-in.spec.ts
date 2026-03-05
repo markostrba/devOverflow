@@ -1,17 +1,12 @@
 // tests/e2e/signin.spec.ts
 import { expect, test } from "@playwright/test";
 import ROUTES from "@/lib/constants/routes";
-import { EXISTING_TEST_USER } from "../helpers/auth-helper";
+import { EXISTING_TEST_USER, getAuthFieldFill } from "../helpers/auth-helper";
 
 test.describe("Authentication: Sign In", () => {
   test("should login with valid credentials", async ({ page }) => {
     const { email, password } = EXISTING_TEST_USER;
-
-    const safeFill = async (label: string, value: string) => {
-      const field = page.getByRole("textbox", { name: label });
-      await field.click();
-      await field.fill(value);
-    };
+    const safeFill = getAuthFieldFill(page);
 
     await page.goto(ROUTES.SIGN_IN);
 
